@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>813</width>
+    <height>602</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MseedProcess</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(248,248,248);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="button_virtual_env_choose">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>260</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(248,248,248);
+	font-size: 12px;
+}
+
+QPushButton:hover {
+    border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(238,238,238);
+	font-size: 13px;
+}
+
+QPushButton:pressed {
+    border-radius: 10px;
+	border: 1px solid blue;
+    background-color: rgb(238,238,238);
+	font-size: 11px;
+}</string>
+    </property>
+    <property name="text">
+     <string>浏览 ...</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_spm_path">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>30</y>
+      <width>341</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Calibri</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: 2px solid;
+    border-radius: 10px;
+    background: white;
+    selection-background-color: green;
+}
+ 
+QLineEdit:hover {
+    border: 2px solid blue;  
+}</string>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_set_spm_path">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>30</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(248,248,248);
+	font-size: 13px;
+}
+
+QPushButton:hover {
+    border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(238,238,238);
+	font-size: 14px;
+}
+
+QPushButton:pressed {
+    border-radius: 10px;
+	border: 1px solid blue;
+    background-color: rgb(238,238,238);
+	font-size: 12px;
+}</string>
+    </property>
+    <property name="text">
+     <string>浏览 ...</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_run">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>80</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(248,248,248);
+	font-size: 15px;
+}
+
+QPushButton:hover {
+    border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(238,238,238);
+	font-size: 16px;
+}
+
+QPushButton:pressed {
+    border-radius: 10px;
+	border: 1px solid blue;
+    background-color: rgb(238,238,238);
+	font-size: 14px;
+}</string>
+    </property>
+    <property name="text">
+     <string>运行</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_argument">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>320</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248, 248, 248);</string>
+    </property>
+    <property name="text">
+     <string>参数</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_frame_argument">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>340</y>
+      <width>231</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248,248,248);
+border: 2px solid;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_output_excel">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>480</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(248,248,248);
+	font-size: 13px;
+}
+
+QPushButton:hover {
+    border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(238,238,238);
+	font-size: 14px;
+}
+
+QPushButton:pressed {
+    border-radius: 10px;
+	border: 1px solid blue;
+    background-color: rgb(238,238,238);
+	font-size: 12px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Excel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_frame_output">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>450</y>
+      <width>231</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248,248,248);
+border: 2px solid;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_output">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>430</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248, 248, 248);</string>
+    </property>
+    <property name="text">
+     <string>数据导出</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_output_csv">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>480</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(248,248,248);
+	font-size: 13px;
+}
+
+QPushButton:hover {
+    border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(238,238,238);
+	font-size: 14px;
+}
+
+QPushButton:pressed {
+    border-radius: 10px;
+	border: 1px solid blue;
+    background-color: rgb(238,238,238);
+	font-size: 12px;
+}</string>
+    </property>
+    <property name="text">
+     <string>CSV</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_python_env">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>185</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>当前虚拟环境配置：</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_log">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>120</y>
+      <width>41</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248, 248, 248);</string>
+    </property>
+    <property name="text">
+     <string>log</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_virtual_env">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>260</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>虚拟环境</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser_log">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>130</y>
+      <width>471</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248,248,248);
+border: 2px solid;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_alignment_count">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>370</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>对齐时长(ms)：</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="input_alignment_count">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>370</y>
+      <width>81</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    border: 2px solid;
+    border-radius: 4px;
+    background: white;
+    selection-background-color: green;
+}
+ 
+QLineEdit:hover {
+    border: 2px solid blue;  
+}</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_interpreter_install">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>60</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(248,248,248);
+	font-size: 12px;
+}
+
+QPushButton:hover {
+    border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(238,238,238);
+	font-size: 13px;
+}
+
+QPushButton:pressed {
+    border-radius: 10px;
+	border: 1px solid blue;
+    background-color: rgb(238,238,238);
+	font-size: 11px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Python 解释器 安装</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_dependency_install">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>110</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(248,248,248);
+	font-size: 12px;
+}
+
+QPushButton:hover {
+    border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(238,238,238);
+	font-size: 13px;
+}
+
+QPushButton:pressed {
+    border-radius: 10px;
+	border: 1px solid blue;
+    background-color: rgb(238,238,238);
+	font-size: 11px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Python 依赖 安装</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_python_env_value">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>215</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_frame_pyenv">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>231</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248,248,248);
+border: 2px solid;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_pyenv">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>10</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248, 248, 248);</string>
+    </property>
+    <property name="text">
+     <string>Python 环境</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_line_1">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>160</y>
+      <width>211</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>--------------------------------</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_interpreter_check">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>65</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../resource.qrc">:/py_check/resource/error.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_dependency_check">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>115</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="../resource.qrc">:/py_check/resource/error.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_virtual_env_clear">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>185</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(248,248,248);
+	font-size: 12px;
+}
+
+QPushButton:hover {
+    border-radius: 10px;
+	border: 1px solid;
+    background-color: rgb(238,238,238);
+	font-size: 13px;
+}
+
+QPushButton:pressed {
+    border-radius: 10px;
+	border: 1px solid blue;
+    background-color: rgb(238,238,238);
+	font-size: 11px;
+}</string>
+    </property>
+    <property name="text">
+     <string>清除</string>
+    </property>
+   </widget>
+   <zorder>label_frame_pyenv</zorder>
+   <zorder>textBrowser_log</zorder>
+   <zorder>label_frame_argument</zorder>
+   <zorder>label_frame_output</zorder>
+   <zorder>button_virtual_env_choose</zorder>
+   <zorder>input_spm_path</zorder>
+   <zorder>button_set_spm_path</zorder>
+   <zorder>button_run</zorder>
+   <zorder>label_text_argument</zorder>
+   <zorder>button_output_excel</zorder>
+   <zorder>label_text_output</zorder>
+   <zorder>button_output_csv</zorder>
+   <zorder>label_python_env</zorder>
+   <zorder>label_text_log</zorder>
+   <zorder>checkBox_virtual_env</zorder>
+   <zorder>label_alignment_count</zorder>
+   <zorder>input_alignment_count</zorder>
+   <zorder>button_interpreter_install</zorder>
+   <zorder>button_dependency_install</zorder>
+   <zorder>label_python_env_value</zorder>
+   <zorder>label_text_pyenv</zorder>
+   <zorder>label_line_1</zorder>
+   <zorder>label_dependency_check</zorder>
+   <zorder>label_interpreter_check</zorder>
+   <zorder>button_virtual_env_clear</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>813</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="../resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
