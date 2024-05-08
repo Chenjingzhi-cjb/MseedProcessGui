@@ -51,6 +51,10 @@ private:
 
     void loadConnect();
 
+    void updatePythonInterpreterUI();
+
+    void updatePythonDependencyUI();
+
     void pythonEnvInit();
 
 private:

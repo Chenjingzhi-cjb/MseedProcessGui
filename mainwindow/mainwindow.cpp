@@ -36,6 +36,26 @@ void MainWindow::loadConnect() {
     });
 }
 
+void MainWindow::updatePythonInterpreterUI() {
+    if (m_pc.checkInterpreter()) {
+        ui->button_interpreter_install->setEnabled(false);
+        ui->label_interpreter_check->setPixmap(QPixmap(":/py_check/resource/right.png"));
+    } else {
+        ui->button_interpreter_install->setEnabled(true);
+        ui->label_interpreter_check->setPixmap(QPixmap(":/py_check/resource/error.png"));
+    }
+}
+
+void MainWindow::updatePythonDependencyUI() {
+    if (m_pc.checkDependency()) {
+        ui->button_dependency_install->setEnabled(false);
+        ui->label_dependency_check->setPixmap(QPixmap(":/py_check/resource/right.png"));
+    } else {
+        ui->button_dependency_install->setEnabled(true);
+        ui->label_dependency_check->setPixmap(QPixmap(":/py_check/resource/error.png"));
+    }
+}
+
 void MainWindow::pythonEnvInit() {
     // 检查虚拟环境配置
     QString py_virtual_path = m_pc.readVirtualEnvConfig();  // 读取虚拟环境配置
@@ -48,16 +68,10 @@ void MainWindow::pythonEnvInit() {
     }
 
     // 检查解释器
-    if (m_pc.checkInterpreter()) {
-        ui->button_interpreter_install->setEnabled(false);
-        ui->label_interpreter_check->setPixmap(QPixmap(":/py_check/resource/right.png"));
-    }
+    updatePythonInterpreterUI();
 
     // 检查依赖
-    if (m_pc.checkDependency()) {
-        ui->button_dependency_install->setEnabled(false);
-        ui->label_dependency_check->setPixmap(QPixmap(":/py_check/resource/right.png"));
-    }
+    updatePythonDependencyUI();
 }
 
 void MainWindow::on_button_set_spm_path_clicked() {
@@ -93,18 +107,21 @@ void MainWindow::on_button_virtual_env_choose_clicked() {
     }
 
     // 检查依赖
-    if (m_pc.checkDependency()) {
-        ui->button_dependency_install->setEnabled(false);
-        ui->label_dependency_check->setPixmap(QPixmap(":/py_check/resource/right.png"));
-    }
+    updatePythonDependencyUI();
 }
 
 void MainWindow::on_button_interpreter_install_clicked() {
     m_pc.installInterpreter();
+
+    // 检查解释器
+    updatePythonInterpreterUI();
 }
 
 void MainWindow::on_button_dependency_install_clicked() {
     m_pc.installDependency();
+
+    // 检查依赖
+    updatePythonDependencyUI();
 }
 
 void MainWindow::on_button_virtual_env_clear_clicked() {
@@ -115,13 +132,7 @@ void MainWindow::on_button_virtual_env_clear_clicked() {
     ui->checkBox_virtual_env->setChecked(false);
 
     // 检查依赖
-    if (m_pc.checkDependency()) {
-        ui->button_dependency_install->setEnabled(false);
-        ui->label_dependency_check->setPixmap(QPixmap(":/py_check/resource/right.png"));
-    } else {
-        ui->button_dependency_install->setEnabled(true);
-        ui->label_dependency_check->setPixmap(QPixmap(":/py_check/resource/error.png"));
-    }
+    updatePythonDependencyUI();
 }
 
 void MainWindow::on_button_output_excel_clicked() {
