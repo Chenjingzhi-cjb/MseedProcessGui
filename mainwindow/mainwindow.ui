@@ -52,7 +52,7 @@ QPushButton:pressed {
      <string>浏览 ...</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="input_spm_path">
+   <widget class="QLineEdit" name="input_mseed_path">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -83,7 +83,7 @@ QLineEdit:hover {
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_set_spm_path">
+   <widget class="QPushButton" name="button_set_mseed_path">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -702,8 +702,8 @@ QPushButton:pressed {
    <zorder>label_frame_argument</zorder>
    <zorder>label_frame_output</zorder>
    <zorder>button_virtual_env_choose</zorder>
-   <zorder>input_spm_path</zorder>
-   <zorder>button_set_spm_path</zorder>
+   <zorder>input_mseed_path</zorder>
+   <zorder>button_set_mseed_path</zorder>
    <zorder>button_run</zorder>
    <zorder>label_text_argument</zorder>
    <zorder>button_output_excel</zorder>

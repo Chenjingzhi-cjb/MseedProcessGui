@@ -27,11 +27,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_button_set_spm_path_clicked();
+    void on_button_set_mseed_path_clicked();
 
     void on_button_run_clicked();
 
-    void on_checkBox_virtual_env_clicked();
+    void on_checkBox_virtual_env_stateChanged(int arg1);
 
     void on_button_virtual_env_choose_clicked();
 

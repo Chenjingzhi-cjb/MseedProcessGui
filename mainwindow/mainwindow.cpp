@@ -64,7 +64,7 @@ void MainWindow::pythonEnvInit() {
         m_pc.setPyVirtualPath(py_virtual_path.toStdString());
         QStringList path_split_list = py_virtual_path.split("/");
         ui->label_python_env_value->setText(path_split_list.at(path_split_list.size() - 2));
-        ui->checkBox_virtual_env->setChecked(true);
+        ui->checkBox_virtual_env->setCheckState(Qt::Checked);
     }
 
     // 检查解释器
@@ -74,23 +74,23 @@ void MainWindow::pythonEnvInit() {
     updatePythonDependencyUI();
 }
 
-void MainWindow::on_button_set_spm_path_clicked() {
+void MainWindow::on_button_set_mseed_path_clicked() {
     QString folder_path = QFileDialog::getExistingDirectory(this, "Select directory", "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     if(!folder_path.isEmpty()) {
         m_mp.setFolderPath(folder_path.toStdString());
-        ui->input_spm_path->setText(folder_path);
+        ui->input_mseed_path->setText(folder_path);
     }
 }
 
 void MainWindow::on_button_run_clicked() {
-    if (!ui->input_spm_path->text().isEmpty()) {
+    if (!ui->input_mseed_path->text().isEmpty()) {
         m_mp.setAlignmentCount(ui->input_alignment_count->text().toInt());
         m_mp.run(0);
     }
 }
 
-void MainWindow::on_checkBox_virtual_env_clicked() {
+void MainWindow::on_checkBox_virtual_env_stateChanged(int arg1) {
     m_mp.setPyVirtualFlag(ui->checkBox_virtual_env->isChecked());
 }
 
@@ -103,7 +103,7 @@ void MainWindow::on_button_virtual_env_choose_clicked() {
         m_mp.setPyVirtualPath(folder_path.toStdString());
         QStringList path_split_list = folder_path.split("/");
         ui->label_python_env_value->setText(path_split_list.at(path_split_list.size() - 2));
-        ui->checkBox_virtual_env->setChecked(true);
+        ui->checkBox_virtual_env->setCheckState(Qt::Checked);
     }
 
     // 检查依赖
@@ -129,14 +129,14 @@ void MainWindow::on_button_virtual_env_clear_clicked() {
     m_mp.setPyVirtualPath("");
     m_pc.setPyVirtualPath("");
     ui->label_python_env_value->setText("-");
-    ui->checkBox_virtual_env->setChecked(false);
+    ui->checkBox_virtual_env->setCheckState(Qt::Unchecked);
 
     // 检查依赖
     updatePythonDependencyUI();
 }
 
 void MainWindow::on_button_output_excel_clicked() {
-    if (!ui->input_spm_path->text().isEmpty()) {
+    if (!ui->input_mseed_path->text().isEmpty()) {
         m_mp.setAlignmentCount(ui->input_alignment_count->text().toInt());
         m_mp.run(1);
     }
