@@ -35,4 +35,4 @@
 
 编译环境：MSVC 64-bit
 
-Release 构建环境：QT5
+Release 构建环境：QT6
