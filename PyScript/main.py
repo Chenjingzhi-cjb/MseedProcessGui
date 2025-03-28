@@ -33,7 +33,7 @@ def data_conversion_base(filename, folder_path, alignment_count):
     return freq_axis, half_abs_fx
 
 
-def data_conv_pyplot(folder_path, alignment_count):
+def data_conv_pyplot(folder_path, alignment_count, cmd):
     for index, filename in enumerate(os.listdir(folder_path)):
         if filename.endswith(".mseed"):
             freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_count)
@@ -45,8 +45,13 @@ def data_conv_pyplot(folder_path, alignment_count):
             plt.ylabel('Magnitude')
             plt.title('FFT Spectrum for {}'.format(filename))  # 使用文件名作为标题
 
-    # 显示所有图像
-    plt.show()
+            if cmd == "save":
+                # 保存图像
+                plt.savefig(f"{folder_path}/{filename.removesuffix('.mseed')}.png")
+
+    if cmd == "show":
+        # 显示所有图像
+        plt.show()
 
 
 def num_to_excel_col(n):
@@ -115,9 +120,11 @@ def data_conv_excel(folder_path, alignment_count):
 
 
 def main(folder_path, alignment_count, exec_type):
-    if exec_type == 'C':
-        data_conv_pyplot(folder_path, alignment_count)
-    elif exec_type == 'S':
+    if exec_type == 'Plot1':
+        data_conv_pyplot(folder_path, alignment_count, "show")
+    elif exec_type == 'Plot2':
+        data_conv_pyplot(folder_path, alignment_count, "save")
+    elif exec_type == 'Excel':
         data_conv_excel(folder_path, alignment_count)
 
     print("Finished!")
@@ -127,7 +134,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Parse arguments for main.py')
     parser.add_argument('-F', help='Folder Path')
     parser.add_argument('-A', type=int, help='Alignment Count')
-    parser.add_argument('-E', choices=['C', 'S'], help='Exec Type')
+    parser.add_argument('-E', choices=['Plot1', 'Plot2', 'Excel'], help='Exec Type')
 
     args = parser.parse_args()
 
