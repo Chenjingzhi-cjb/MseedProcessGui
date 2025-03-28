@@ -33,7 +33,7 @@ def data_conversion_base(filename, folder_path, alignment_count):
     return freq_axis, half_abs_fx
 
 
-def data_conversion_C(folder_path, alignment_count):
+def data_conv_pyplot(folder_path, alignment_count):
     for index, filename in enumerate(os.listdir(folder_path)):
         if filename.endswith(".mseed"):
             freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_count)
@@ -49,22 +49,66 @@ def data_conversion_C(folder_path, alignment_count):
     plt.show()
 
 
-def data_conversion_S(folder_path, alignment_count):
+def num_to_excel_col(n):
+    """将 0-based 列索引转换为 Excel 列名（A, B, C, ..., Z, AA, AB, ...）"""
+    col_name = ""
+    while n >= 0:
+        col_name = chr(n % 26 + ord('A')) + col_name
+        n = n // 26 - 1
+    return col_name
+
+
+def data_conv_excel(folder_path, alignment_count):
     workbook = xlsxwriter.Workbook(folder_path + '\\' + "result.xlsx")
     worksheet = workbook.add_worksheet()
+
+    chart = workbook.add_chart({"type": "scatter", 'subtype': 'smooth'})
 
     col = 0
     for filename in os.listdir(folder_path):
         if filename.endswith(".mseed"):
+            # 计算频域数据
             freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_count)
 
-            row = 0
-            for i in range(len(freq_axis)):
-                # 往表格写入内容
+            # 写入频域数据
+            worksheet.write(0, col, filename.removesuffix(".mseed"))
+
+            row = 1  # 去直流
+            for i in range(1, len(freq_axis)):
                 worksheet.write(row, col, freq_axis[i])
                 worksheet.write(row, col + 1, half_abs_fx[i])
+
                 row += 1
+
+            # 添加数据到图表
+            x_col = num_to_excel_col(col)
+            y_col = num_to_excel_col(col + 1)
+
+            chart.add_series({
+                "name": f"={worksheet.name}!${x_col}$1",  # 组名称
+                "categories": f"={worksheet.name}!${x_col}$2:${x_col}${len(freq_axis)}",  # X 轴数据
+                "values": f"={worksheet.name}!${y_col}$2:${y_col}${len(freq_axis)}",  # Y 轴数据
+                "line": {"width": 1.5, "smooth": True},  # 平滑曲线
+            })
+
             col += 2
+
+    # 设置图表属性
+    chart.set_title({"name": "Spectral Analysis"})
+    chart.set_x_axis({
+        "name": "Frequency (Hz)",
+        "min": 0,
+        "major_gridlines": {"visible": True, "line": {"width": 0.5, "dash_type": "dash"}},  # 启用主网格线
+    })
+    chart.set_y_axis({
+        "name": "Amplitude",
+        "min": 0,
+        "major_gridlines": {"visible": True, "line": {"width": 0.5, "dash_type": "dash"}},  # 启用主网格线
+    })
+    chart.set_size({"width": 1000, "height": 520})
+
+    # 插入图表
+    worksheet.insert_chart("B2", chart)
 
     # 保存
     workbook.close()
@@ -72,9 +116,9 @@ def data_conversion_S(folder_path, alignment_count):
 
 def main(folder_path, alignment_count, exec_type):
     if exec_type == 'C':
-        data_conversion_C(folder_path, alignment_count)
+        data_conv_pyplot(folder_path, alignment_count)
     elif exec_type == 'S':
-        data_conversion_S(folder_path, alignment_count)
+        data_conv_excel(folder_path, alignment_count)
 
     print("Finished!")
 
