@@ -7,19 +7,22 @@ import xlsxwriter
 from obspy.core import read
 
 
-def data_conversion_base(filename, folder_path, alignment_count):
+def data_conversion_base(filename, folder_path, alignment_time):
     file_path = os.path.join(folder_path, filename)
 
     stream = read(file_path)
     trace = stream[0]
 
+    # 获取采样率（Fs）的值
+    fs = trace.stats.sampling_rate
+
+    # 时间 -> 数量
+    alignment_count = int(alignment_time * fs / 1000.0)
+
     # 输入信号
     x = np.array(trace.data)
     if len(x) > alignment_count:
         x = x[:alignment_count]
-
-    # 获取采样率（Fs）的值
-    fs = trace.stats.sampling_rate
 
     # 创建频率轴
     freq_axis = np.fft.rfftfreq(len(x), d=1/fs)
@@ -33,10 +36,10 @@ def data_conversion_base(filename, folder_path, alignment_count):
     return freq_axis, half_abs_fx
 
 
-def data_conv_pyplot(folder_path, alignment_count, cmd):
+def data_conv_pyplot(folder_path, alignment_time, cmd):
     for index, filename in enumerate(os.listdir(folder_path)):
         if filename.endswith(".mseed"):
-            freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_count)
+            freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_time)
 
             # 绘制散点图并将图像存储到列表中
             plt.figure(index)
@@ -63,7 +66,7 @@ def num_to_excel_col(n):
     return col_name
 
 
-def data_conv_excel(folder_path, alignment_count):
+def data_conv_excel(folder_path, alignment_time):
     workbook = xlsxwriter.Workbook(folder_path + '\\' + "result.xlsx")
     worksheet = workbook.add_worksheet()
 
@@ -73,7 +76,7 @@ def data_conv_excel(folder_path, alignment_count):
     for filename in os.listdir(folder_path):
         if filename.endswith(".mseed"):
             # 计算频域数据
-            freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_count)
+            freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_time)
 
             # 写入频域数据
             worksheet.write(0, col, filename.removesuffix(".mseed"))
@@ -119,13 +122,13 @@ def data_conv_excel(folder_path, alignment_count):
     workbook.close()
 
 
-def main(folder_path, alignment_count, exec_type):
+def main(folder_path, alignment_time, exec_type):
     if exec_type == 'Plot1':
-        data_conv_pyplot(folder_path, alignment_count, "show")
+        data_conv_pyplot(folder_path, alignment_time, "show")
     elif exec_type == 'Plot2':
-        data_conv_pyplot(folder_path, alignment_count, "save")
+        data_conv_pyplot(folder_path, alignment_time, "save")
     elif exec_type == 'Excel':
-        data_conv_excel(folder_path, alignment_count)
+        data_conv_excel(folder_path, alignment_time)
 
     print("Finished!")
 
@@ -133,7 +136,7 @@ def main(folder_path, alignment_count, exec_type):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Parse arguments for main.py')
     parser.add_argument('-F', help='Folder Path')
-    parser.add_argument('-A', type=int, help='Alignment Count')
+    parser.add_argument('-A', type=int, help='Alignment Time')
     parser.add_argument('-E', choices=['Plot1', 'Plot2', 'Excel'], help='Exec Type')
 
     args = parser.parse_args()
