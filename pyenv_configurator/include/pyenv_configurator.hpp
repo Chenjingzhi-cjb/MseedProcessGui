@@ -35,21 +35,22 @@ public:
 
         // 等待进程执行
         if (!process.waitForStarted()) {
-            emit signalMessage("Failed to start check Python!");
+            emit signalMessageError("[PyEnv] Failed to start check Python!");
             return false;
         }
 
         // 等待进程完成
         if (!process.waitForFinished(-1)) {
-            emit signalMessage("Check Python failed to finish!");
+            emit signalMessageError("[PyEnv] Check Python failed to finish!");
             return false;
         }
 
         // 检查进程的退出状态
         int exit_code = process.exitCode();
-        emit signalMessage(QString::fromStdString("Check Python finished with exit code: " + std::to_string(exit_code)));
-
-        if (exit_code != 0) return false;
+        if (exit_code != 0) {
+            emit signalMessageError(QString::fromStdString("[PyEnv] Check Python finished with exit code: " + std::to_string(exit_code)));
+            return false;
+        }
 
         return true;
     }
@@ -78,21 +79,22 @@ public:
 
             // 等待进程执行
             if (!process.waitForStarted()) {
-                emit signalMessage(QString::fromStdString("Failed to start check " + arguments.last().toStdString() + "!"));
+                emit signalMessageError(QString::fromStdString("[PyEnv] Failed to start check " + arguments.last().toStdString() + "!"));
                 return false;
             }
 
             // 等待进程完成
             if (!process.waitForFinished(-1)) {
-                emit signalMessage(QString::fromStdString("Check " + arguments.last().toStdString() + " failed to finish!"));
+                emit signalMessageError(QString::fromStdString("[PyEnv] Check " + arguments.last().toStdString() + " failed to finish!"));
                 return false;
             }
 
             // 检查进程的退出状态
             int exit_code = process.exitCode();
-            emit signalMessage(QString::fromStdString("Check " + arguments.last().toStdString() + " finished with exit code: " + std::to_string(exit_code)));
-
-            if (exit_code != 0) error = true;
+            if (exit_code != 0) {
+                emit signalMessageError(QString::fromStdString("[PyEnv] Check " + arguments.last().toStdString() + " finished with exit code: " + std::to_string(exit_code)));
+                error = true;
+            }
         }
 
         if (error) return false;
@@ -113,19 +115,24 @@ public:
 
         // 等待进程执行
         if (!process.waitForStarted()) {
-            emit signalMessage("Failed to start install Python!");
+            emit signalMessageError("[PyEnv] Failed to start install Python!");
             return false;
         }
 
         // 等待进程完成
         if (!process.waitForFinished(-1)) {
-            emit signalMessage("Install Python failed to finish!");
+            emit signalMessageError("[PyEnv] Install Python failed to finish!");
             return false;
         }
 
         // 检查进程的退出状态
         int exit_code = process.exitCode();
-        emit signalMessage(QString::fromStdString("Install Python finished with exit code: " + std::to_string(exit_code)));
+        if (exit_code != 0) {
+            emit signalMessageError(QString::fromStdString("[PyEnv] Install Python finished with exit code: " + std::to_string(exit_code)));
+            return false;
+        }
+
+        emit signalMessageInfo(QString::fromStdString("[PyEnv] Install Python finished!"));
 
         return true;
     }
@@ -149,19 +156,23 @@ public:
 
             // 等待进程执行
             if (!process.waitForStarted()) {
-                emit signalMessage(QString::fromStdString("Failed to start install " + arguments.last().toStdString() + "!"));
+                emit signalMessageError(QString::fromStdString("[PyEnv] Failed to start install " + arguments.last().toStdString() + "!"));
                 return false;
             }
 
             // 等待进程完成
             if (!process.waitForFinished(-1)) {
-                emit signalMessage(QString::fromStdString("Install " + arguments.last().toStdString() + " failed to finish!"));
+                emit signalMessageError(QString::fromStdString("[PyEnv] Install " + arguments.last().toStdString() + " failed to finish!"));
                 return false;
             }
 
             // 检查进程的退出状态
             int exit_code = process.exitCode();
-            emit signalMessage(QString::fromStdString("Install " + arguments.last().toStdString() + " finished with exit code: " + std::to_string(exit_code)));
+            if (exit_code != 0) {
+                emit signalMessageError(QString::fromStdString("[PyEnv] Install " + arguments.last().toStdString() + " finished with exit code: " + std::to_string(exit_code)));
+            }
+
+            emit signalMessageInfo(QString::fromStdString("[PyEnv] Install " + arguments.last().toStdString() + " finished!"));
         }
 
         return true;
@@ -194,7 +205,9 @@ public:
     }
 
 signals:
-    void signalMessage(QString);
+    void signalMessageInfo(QString);
+
+    void signalMessageError(QString);
 
 private:
     const QString m_virtual_env_config_path;

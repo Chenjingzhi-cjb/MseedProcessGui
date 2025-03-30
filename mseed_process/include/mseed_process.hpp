@@ -20,19 +20,22 @@ public:
     ~MseedProcess() = default;
 
 public:
-    int run(int exec_type) {
+    int run(int exec_type, std::vector<std::string> file_name_list) {
+        if (file_name_list.empty()) return -1;
+
         // 创建一个 QProcess 对象
         QProcess py_process;
 
         QString exec_str;
-        if (exec_type == 0) exec_str = "C";
-        else if (exec_type == 1) exec_str = "S";
+        if (exec_type == 0) exec_str = "Plot1";
+        else if (exec_type == 1) exec_str = "Plot2";
+        else if (exec_type == 2) exec_str = "Excel";
 
         // 设置要执行的命令和参数
         QString py_interpreter = "python";
         if (m_py_virtual_flag) {
             if (m_py_virtual_path.empty()) {
-                emit signalMessage("Python virual path is empty!");
+                emit signalMessageError("[PyEnv] Python virual path is empty!");
                 return -1;
             }
 
@@ -40,31 +43,45 @@ public:
         }
         QStringList py_script_arguments;
         py_script_arguments << (QCoreApplication::applicationDirPath() + "/PyScript/main.py")
-            << "-F" << QString::fromStdString(m_folder_path)
-            << "-A" << QString::fromStdString(std::to_string(m_alignment_count))
-            << "-E" << exec_str;
+                            << "-F" << QString::fromStdString(m_folder_path)
+                            << "-A" << QString::fromStdString(std::to_string(m_alignment_count))
+                            << "-E" << exec_str;
+
+        py_script_arguments << "-fs";
+        for (auto &fn : file_name_list) {
+            py_script_arguments << QString::fromStdString(fn);
+        }
+
+        emit signalMessageInfo(QString::fromStdString("[PyProcess] Startup script ......"));
 
         // 启动 Python 脚本
         py_process.start(py_interpreter, py_script_arguments);
 
         // 等待进程完成
         if (!py_process.waitForStarted()) {
-            emit signalMessage("Failed to start Python process!");
+            emit signalMessageError("[PyProcess] Failed to start Python process!");
             return -1;
         }
 
         // 等待 Python 脚本执行完成
         if (!py_process.waitForFinished(-1)) {
-            emit signalMessage("Python process failed to finish!");
+            emit signalMessageError("[PyProcess] Python process failed to finish!");
             return -1;
         }
 
         // 检查 Python 脚本的退出状态
         int exit_code = py_process.exitCode();
-        emit signalMessage(QString::fromStdString("Python process finished with exit code: " + std::to_string(exit_code)));
+        if (exit_code != 0) {
+            emit signalMessageError(QString::fromStdString("[PyProcess] Python process finished with exit code: " + std::to_string(exit_code)));
+            return -1;
+        }
 
-        if (exec_type == 1)
-            emit signalMessage("The data has been exported to \"result.xlsx\" in the source file directory.");
+        if (exec_type == 0)
+            emit signalMessageInfo("[PyProcess] The charts are generated.");
+        else if (exec_type == 1)
+            emit signalMessageInfo("[PyProcess] The charts have been saved in the source file directory.");
+        else if (exec_type == 2)
+            emit signalMessageInfo("[PyProcess] The data has been exported to \"result.xlsx\" in the source file directory.");
 
         return 0;
     }
@@ -81,12 +98,18 @@ public:
         m_folder_path = path;
     }
 
+    std::string getFolderPath() {
+        return m_folder_path;
+    }
+
     void setAlignmentCount(int count) {
         m_alignment_count = count;
     }
 
 signals:
-    void signalMessage(QString);
+    void signalMessageInfo(QString);
+
+    void signalMessageError(QString);
 
 private:
     bool m_py_virtual_flag;

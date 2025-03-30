@@ -22,15 +22,47 @@ MainWindow::~MainWindow() {
 
 void MainWindow::loadUiInit() {
     ui->textBrowser_log->append(" ");
-    ui->input_alignment_count->setText("32500");  // 默认
+
+    ui->scrollArea_select_files->setStyleSheet(
+        "QScrollArea {"
+        "    border: 1px solid gray;"
+        "}"
+    );
 }
 
 void MainWindow::loadConnect() {
-    connect(&m_pc, &PyenvConfigurator::signalMessage, this, [=](QString info) {
+    connect(this, &MainWindow::signalMessageInfo, this, [=](QString info) {
+        ui->textBrowser_log->setTextColor(Qt::black);
         ui->textBrowser_log->append(info);
         ui->textBrowser_log->append(" ");
     });
-    connect(&m_mp, &MseedProcess::signalMessage, this, [=](QString info) {
+
+    connect(this, &MainWindow::signalMessageError, this, [=](QString info) {
+        ui->textBrowser_log->setTextColor(Qt::red);
+        ui->textBrowser_log->append(info);
+        ui->textBrowser_log->append(" ");
+    });
+
+    connect(&m_pc, &PyenvConfigurator::signalMessageInfo, this, [=](QString info) {
+        ui->textBrowser_log->setTextColor(Qt::black);
+        ui->textBrowser_log->append(info);
+        ui->textBrowser_log->append(" ");
+    });
+
+    connect(&m_pc, &PyenvConfigurator::signalMessageError, this, [=](QString info) {
+        ui->textBrowser_log->setTextColor(Qt::red);
+        ui->textBrowser_log->append(info);
+        ui->textBrowser_log->append(" ");
+    });
+
+    connect(&m_mp, &MseedProcess::signalMessageInfo, this, [=](QString info) {
+        ui->textBrowser_log->setTextColor(Qt::black);
+        ui->textBrowser_log->append(info);
+        ui->textBrowser_log->append(" ");
+    });
+
+    connect(&m_mp, &MseedProcess::signalMessageError, this, [=](QString info) {
+        ui->textBrowser_log->setTextColor(Qt::red);
         ui->textBrowser_log->append(info);
         ui->textBrowser_log->append(" ");
     });
@@ -74,19 +106,103 @@ void MainWindow::pythonEnvInit() {
     updatePythonDependencyUI();
 }
 
+void MainWindow::exexPythonScript(int cmd) {
+    if (!ui->input_mseed_path->text().isEmpty()) {
+        std::vector<std::string> file_name_list;
+
+        for (int i = 0; i < m_file_list_enabled.size(); i++) {
+            if (m_file_list_enabled[i] == true) {
+                file_name_list.emplace_back(m_file_list[i]);
+            }
+        }
+
+        m_mp.setAlignmentCount(ui->spinBox_alignment_count->value());
+        m_mp.run(cmd, file_name_list);
+    } else {
+        emit signalMessageError("[PyProcess] Please select the files path first!");
+    }
+}
+
+void MainWindow::slotFilesCheckBoxStateChanged(int state, int index) {
+    if (state == 0) {
+        m_file_list_enabled[index] = false;
+    } else {
+        m_file_list_enabled[index] = true;
+    }
+}
+
+void MainWindow::updateWidgetSelectFiles() {
+    // 移除已有的部件
+    if (ui->scrollArea_select_files ->widget()) {
+        delete ui->scrollArea_select_files->widget();
+    }
+
+    // 创建容器部件和布局
+    QWidget *container = new QWidget(ui->scrollArea_select_files);
+    QVBoxLayout *layout = new QVBoxLayout(container);
+
+    container->setMinimumHeight(m_file_list.size() * 35);
+    container->setMaximumHeight(m_file_list.size() * 35);
+
+    layout->setSpacing(0);
+    layout->setContentsMargins(5, 0, 5, 0);
+
+    container->setLayout(layout);
+
+    // 准备动态内容
+    m_file_list_checkbox.clear();
+
+    for (int i = 0; i < m_file_list.size(); i++) {
+        std::string point_info = m_file_list[i];
+
+        QCheckBox *check_box = new QCheckBox(QString::fromStdString(point_info));
+        check_box->setChecked(true);
+        check_box->setStyleSheet("padding: 5px; font-size: 12px;");
+
+        // 将 QCheckBox 添加到布局中
+        layout->addWidget(check_box);
+        m_file_list_checkbox.emplace_back(check_box);
+
+        connect(check_box, &QCheckBox::stateChanged, this, [=](int state) {
+            slotFilesCheckBoxStateChanged(state, i);
+        });
+
+        // 添加分割线
+        QFrame *line = new QFrame();
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+        line->setStyleSheet("color: gray;");  // 设置分割线颜色
+        layout->addWidget(line);
+    }
+
+    // 调整容器尺寸并设置到 QScrollArea 中
+    ui->scrollArea_select_files->setWidget(container);
+    ui->scrollArea_select_files->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    ui->scrollArea_select_files->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+}
+
 void MainWindow::on_button_set_mseed_path_clicked() {
     QString folder_path = QFileDialog::getExistingDirectory(this, "Select directory", "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     if(!folder_path.isEmpty()) {
         m_mp.setFolderPath(folder_path.toStdString());
         ui->input_mseed_path->setText(folder_path);
-    }
-}
 
-void MainWindow::on_button_run_clicked() {
-    if (!ui->input_mseed_path->text().isEmpty()) {
-        m_mp.setAlignmentCount(ui->input_alignment_count->text().toInt());
-        m_mp.run(0);
+        // get file list
+        QDir dir(folder_path);
+
+        QStringList filters;
+        filters << "*.mseed";
+        QStringList fileList = dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot);
+
+        m_file_list.clear();
+        for (const QString &file : fileList) {
+            m_file_list.push_back(file.toStdString());
+        }
+
+        m_file_list_enabled = std::vector<bool>(m_file_list.size(), true);
+
+        updateWidgetSelectFiles();
     }
 }
 
@@ -135,9 +251,14 @@ void MainWindow::on_button_virtual_env_clear_clicked() {
     updatePythonDependencyUI();
 }
 
+void MainWindow::on_button_show_pyplot_clicked() {
+    exexPythonScript(0);
+}
+
+void MainWindow::on_button_save_pyplot_clicked() {
+    exexPythonScript(1);
+}
+
 void MainWindow::on_button_output_excel_clicked() {
-    if (!ui->input_mseed_path->text().isEmpty()) {
-        m_mp.setAlignmentCount(ui->input_alignment_count->text().toInt());
-        m_mp.run(1);
-    }
+    exexPythonScript(2);
 }

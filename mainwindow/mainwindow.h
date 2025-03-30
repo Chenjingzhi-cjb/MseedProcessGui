@@ -2,8 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDir>
 #include <QFileDialog>
+#include <QVBoxLayout>
+#include <QCheckBox>
+#include <QStringList>
 
+#include <string>
 #include <vector>
 
 #include "mseed_process.hpp"
@@ -27,9 +32,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_button_set_mseed_path_clicked();
+    void slotFilesCheckBoxStateChanged(int state, int index);
 
-    void on_button_run_clicked();
+    void updateWidgetSelectFiles();
+
+    void on_button_set_mseed_path_clicked();
 
     void on_checkBox_virtual_env_stateChanged(int arg1);
 
@@ -41,10 +48,16 @@ private slots:
 
     void on_button_virtual_env_clear_clicked();
 
+    void on_button_show_pyplot_clicked();
+
+    void on_button_save_pyplot_clicked();
+
     void on_button_output_excel_clicked();
 
 signals:
-    void signalMessage(QString);
+    void signalMessageInfo(QString);
+
+    void signalMessageError(QString);
 
 private:
     void loadUiInit();
@@ -57,8 +70,14 @@ private:
 
     void pythonEnvInit();
 
+    void exexPythonScript(int cmd);
+
 private:
     Ui::MainWindow *ui;
+
+    std::vector<std::string> m_file_list;
+    std::vector<bool> m_file_list_enabled;
+    std::vector<QCheckBox *> m_file_list_checkbox;
 
     MseedProcess m_mp;
 

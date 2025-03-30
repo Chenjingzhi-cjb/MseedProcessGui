@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>813</width>
-    <height>602</height>
+    <width>1001</width>
+    <height>501</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1001</width>
+    <height>501</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1001</width>
+    <height>501</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MseedProcess</string>
@@ -20,7 +32,7 @@
    <widget class="QPushButton" name="button_virtual_env_choose">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>140</x>
       <y>260</y>
       <width>91</width>
       <height>31</height>
@@ -30,21 +42,21 @@
      <string notr="true">QPushButton {
 	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(248,248,248);
+	background-color: rgb(248,248,248);
 	font-size: 12px;
 }
 
 QPushButton:hover {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 13px;
 }
 
 QPushButton:pressed {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid blue;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 11px;
 }</string>
     </property>
@@ -55,9 +67,9 @@ QPushButton:pressed {
    <widget class="QLineEdit" name="input_mseed_path">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>30</y>
-      <width>341</width>
+      <x>280</x>
+      <y>60</y>
+      <width>321</width>
       <height>31</height>
      </rect>
     </property>
@@ -86,9 +98,9 @@ QLineEdit:hover {
    <widget class="QPushButton" name="button_set_mseed_path">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>30</y>
-      <width>111</width>
+      <x>610</x>
+      <y>60</y>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -101,21 +113,21 @@ QLineEdit:hover {
      <string notr="true">QPushButton {
 	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(248,248,248);
+	background-color: rgb(248,248,248);
 	font-size: 13px;
 }
 
 QPushButton:hover {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 14px;
 }
 
 QPushButton:pressed {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid blue;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 12px;
 }</string>
     </property>
@@ -123,50 +135,10 @@ QPushButton:pressed {
      <string>浏览 ...</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_run">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>80</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>-1</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-	border-radius: 10px;
-	border: 1px solid;
-    background-color: rgb(248,248,248);
-	font-size: 15px;
-}
-
-QPushButton:hover {
-    border-radius: 10px;
-	border: 1px solid;
-    background-color: rgb(238,238,238);
-	font-size: 16px;
-}
-
-QPushButton:pressed {
-    border-radius: 10px;
-	border: 1px solid blue;
-    background-color: rgb(238,238,238);
-	font-size: 14px;
-}</string>
-    </property>
-    <property name="text">
-     <string>运行</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_text_argument">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>320</y>
       <width>51</width>
       <height>41</height>
@@ -190,10 +162,10 @@ QPushButton:pressed {
    <widget class="QLabel" name="label_frame_argument">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>340</y>
       <width>231</width>
-      <height>81</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="font">
@@ -209,12 +181,12 @@ border: 2px solid;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_output_excel">
+   <widget class="QPushButton" name="button_show_pyplot">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>480</y>
-      <width>71</width>
+      <x>285</x>
+      <y>375</y>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
@@ -227,113 +199,43 @@ border: 2px solid;</string>
      <string notr="true">QPushButton {
 	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(248,248,248);
+	background-color: rgb(248,248,248);
 	font-size: 13px;
 }
 
 QPushButton:hover {
-    border-radius: 10px;
-	border: 1px solid;
-    background-color: rgb(238,238,238);
-	font-size: 14px;
-}
-
-QPushButton:pressed {
-    border-radius: 10px;
-	border: 1px solid blue;
-    background-color: rgb(238,238,238);
-	font-size: 12px;
-}</string>
-    </property>
-    <property name="text">
-     <string>Excel</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_frame_output">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>450</y>
-      <width>231</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(248,248,248);
-border: 2px solid;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_text_output">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>430</y>
-      <width>81</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>13</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(248, 248, 248);</string>
-    </property>
-    <property name="text">
-     <string>数据导出</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_output_csv">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>480</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>-1</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
 	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(248,248,248);
-	font-size: 13px;
-}
-
-QPushButton:hover {
-    border-radius: 10px;
-	border: 1px solid;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 14px;
 }
 
 QPushButton:pressed {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid blue;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 12px;
 }</string>
     </property>
     <property name="text">
-     <string>CSV</string>
+     <string> Show All Charts</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>:/button/resource/plotshow.svg</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
     </property>
    </widget>
    <widget class="QLabel" name="label_python_env">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>185</y>
       <width>131</width>
       <height>31</height>
@@ -357,8 +259,8 @@ QPushButton:pressed {
    <widget class="QLabel" name="label_text_log">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>120</y>
+      <x>730</x>
+      <y>20</y>
       <width>41</width>
       <height>21</height>
      </rect>
@@ -381,7 +283,7 @@ QPushButton:pressed {
    <widget class="QCheckBox" name="checkBox_virtual_env">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>260</y>
       <width>91</width>
       <height>31</height>
@@ -399,10 +301,10 @@ QPushButton:pressed {
    <widget class="QTextBrowser" name="textBrowser_log">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>130</y>
-      <width>471</width>
-      <height>411</height>
+      <x>710</x>
+      <y>30</y>
+      <width>271</width>
+      <height>451</height>
      </rect>
     </property>
     <property name="font">
@@ -418,8 +320,8 @@ border: 2px solid;</string>
    <widget class="QLabel" name="label_alignment_count">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>370</y>
+      <x>40</x>
+      <y>380</y>
       <width>101</width>
       <height>21</height>
      </rect>
@@ -433,37 +335,10 @@ border: 2px solid;</string>
      <string>对齐时长(ms)：</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="input_alignment_count">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>370</y>
-      <width>81</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLineEdit {
-    border: 2px solid;
-    border-radius: 4px;
-    background: white;
-    selection-background-color: green;
-}
- 
-QLineEdit:hover {
-    border: 2px solid blue;  
-}</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="button_interpreter_install">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>60</y>
       <width>161</width>
       <height>31</height>
@@ -473,21 +348,21 @@ QLineEdit:hover {
      <string notr="true">QPushButton {
 	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(248,248,248);
+	background-color: rgb(248,248,248);
 	font-size: 12px;
 }
 
 QPushButton:hover {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 13px;
 }
 
 QPushButton:pressed {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid blue;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 11px;
 }</string>
     </property>
@@ -498,7 +373,7 @@ QPushButton:pressed {
    <widget class="QPushButton" name="button_dependency_install">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>110</y>
       <width>161</width>
       <height>31</height>
@@ -508,21 +383,21 @@ QPushButton:pressed {
      <string notr="true">QPushButton {
 	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(248,248,248);
+	background-color: rgb(248,248,248);
 	font-size: 12px;
 }
 
 QPushButton:hover {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 13px;
 }
 
 QPushButton:pressed {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid blue;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 11px;
 }</string>
     </property>
@@ -533,7 +408,7 @@ QPushButton:pressed {
    <widget class="QLabel" name="label_python_env_value">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>215</y>
       <width>191</width>
       <height>31</height>
@@ -557,7 +432,7 @@ QPushButton:pressed {
    <widget class="QLabel" name="label_frame_pyenv">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>30</y>
       <width>231</width>
       <height>281</height>
@@ -579,7 +454,7 @@ border: 2px solid;</string>
    <widget class="QLabel" name="label_text_pyenv">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>40</x>
       <y>10</y>
       <width>111</width>
       <height>41</height>
@@ -603,7 +478,7 @@ border: 2px solid;</string>
    <widget class="QLabel" name="label_line_1">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>30</x>
       <y>160</y>
       <width>211</width>
       <height>16</height>
@@ -627,7 +502,7 @@ border: 2px solid;</string>
    <widget class="QLabel" name="label_interpreter_check">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>210</x>
       <y>65</y>
       <width>21</width>
       <height>21</height>
@@ -646,7 +521,7 @@ border: 2px solid;</string>
    <widget class="QLabel" name="label_dependency_check">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>210</x>
       <y>115</y>
       <width>21</width>
       <height>21</height>
@@ -665,7 +540,7 @@ border: 2px solid;</string>
    <widget class="QPushButton" name="button_virtual_env_clear">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>190</x>
       <y>185</y>
       <width>41</width>
       <height>31</height>
@@ -675,21 +550,21 @@ border: 2px solid;</string>
      <string notr="true">QPushButton {
 	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(248,248,248);
+	background-color: rgb(248,248,248);
 	font-size: 12px;
 }
 
 QPushButton:hover {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 13px;
 }
 
 QPushButton:pressed {
-    border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid blue;
-    background-color: rgb(238,238,238);
+	background-color: rgb(238,238,238);
 	font-size: 11px;
 }</string>
     </property>
@@ -697,23 +572,275 @@ QPushButton:pressed {
      <string>清除</string>
     </property>
    </widget>
+   <widget class="QSpinBox" name="spinBox_alignment_count">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>375</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QSpinBox {
+    border: 2px solid;
+    border-radius: 4px;
+    background: white;
+    selection-background-color: green;
+}
+ 
+QSpinBox:hover {
+    border: 2px solid blue;  
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="keyboardTracking">
+     <bool>true</bool>
+    </property>
+    <property name="minimum">
+     <number>35000</number>
+    </property>
+    <property name="maximum">
+     <number>120000</number>
+    </property>
+    <property name="value">
+     <number>40000</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_frame_load_data">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>30</y>
+      <width>421</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248,248,248);
+border: 2px solid;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_load_data">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>10</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248, 248, 248);</string>
+    </property>
+    <property name="text">
+     <string>导入数据</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_text_process_data">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>320</y>
+      <width>81</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248, 248, 248);</string>
+    </property>
+    <property name="text">
+     <string>处理数据</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_frame_process_data">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>340</y>
+      <width>421</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(248,248,248);
+border: 2px solid;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_output_excel">
+    <property name="geometry">
+     <rect>
+      <x>285</x>
+      <y>425</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+	background-color: rgb(248,248,248);
+	font-size: 13px;
+}
+
+QPushButton:hover {
+	border-radius: 10px;
+	border: 1px solid;
+	background-color: rgb(238,238,238);
+	font-size: 14px;
+}
+
+QPushButton:pressed {
+	border-radius: 10px;
+	border: 1px solid blue;
+	background-color: rgb(238,238,238);
+	font-size: 12px;
+}</string>
+    </property>
+    <property name="text">
+     <string> Output to Excel</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>:/button/resource/excel.svg</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="button_save_pyplot">
+    <property name="geometry">
+     <rect>
+      <x>465</x>
+      <y>375</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+	background-color: rgb(248,248,248);
+	font-size: 13px;
+}
+
+QPushButton:hover {
+	border-radius: 10px;
+	border: 1px solid;
+	background-color: rgb(238,238,238);
+	font-size: 14px;
+}
+
+QPushButton:pressed {
+	border-radius: 10px;
+	border: 1px solid blue;
+	background-color: rgb(238,238,238);
+	font-size: 12px;
+}</string>
+    </property>
+    <property name="text">
+     <string> Save Charts Individually</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>:/button/resource/plotsave.svg</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea_select_files">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>110</y>
+      <width>401</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>399</width>
+       <height>189</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <zorder>label_frame_process_data</zorder>
+   <zorder>label_frame_load_data</zorder>
    <zorder>label_frame_pyenv</zorder>
    <zorder>textBrowser_log</zorder>
    <zorder>label_frame_argument</zorder>
-   <zorder>label_frame_output</zorder>
    <zorder>button_virtual_env_choose</zorder>
    <zorder>input_mseed_path</zorder>
    <zorder>button_set_mseed_path</zorder>
-   <zorder>button_run</zorder>
    <zorder>label_text_argument</zorder>
-   <zorder>button_output_excel</zorder>
-   <zorder>label_text_output</zorder>
-   <zorder>button_output_csv</zorder>
+   <zorder>button_show_pyplot</zorder>
    <zorder>label_python_env</zorder>
    <zorder>label_text_log</zorder>
    <zorder>checkBox_virtual_env</zorder>
    <zorder>label_alignment_count</zorder>
-   <zorder>input_alignment_count</zorder>
    <zorder>button_interpreter_install</zorder>
    <zorder>button_dependency_install</zorder>
    <zorder>label_python_env_value</zorder>
@@ -722,18 +849,13 @@ QPushButton:pressed {
    <zorder>label_dependency_check</zorder>
    <zorder>label_interpreter_check</zorder>
    <zorder>button_virtual_env_clear</zorder>
+   <zorder>spinBox_alignment_count</zorder>
+   <zorder>label_text_load_data</zorder>
+   <zorder>label_text_process_data</zorder>
+   <zorder>button_output_excel</zorder>
+   <zorder>button_save_pyplot</zorder>
+   <zorder>scrollArea_select_files</zorder>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>813</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
   <include location="../resource.qrc"/>

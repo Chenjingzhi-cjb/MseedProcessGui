@@ -6,4 +6,9 @@
     <qresource prefix="/ico">
         <file>resource/icon.ico</file>
     </qresource>
+    <qresource prefix="/button">
+        <file>resource/excel.svg</file>
+        <file>resource/plotsave.svg</file>
+        <file>resource/plotshow.svg</file>
+    </qresource>
 </RCC>
