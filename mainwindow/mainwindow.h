@@ -32,9 +32,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void slotFilesCheckBoxStateChanged(int state, int index);
-
-    void updateWidgetSelectFiles();
+    void updateWidgetSelectFiles(QStringList &file_list);
 
     void on_button_set_mseed_path_clicked();
 
@@ -75,8 +73,6 @@ private:
 private:
     Ui::MainWindow *ui;
 
-    std::vector<std::string> m_file_list;
-    std::vector<bool> m_file_list_enabled;
     std::vector<QCheckBox *> m_file_list_checkbox;
 
     MseedProcess m_mp;

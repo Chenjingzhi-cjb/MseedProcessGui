@@ -110,9 +110,9 @@ void MainWindow::exexPythonScript(int cmd) {
     if (!ui->input_mseed_path->text().isEmpty()) {
         std::vector<std::string> file_name_list;
 
-        for (int i = 0; i < m_file_list_enabled.size(); i++) {
-            if (m_file_list_enabled[i] == true) {
-                file_name_list.emplace_back(m_file_list[i]);
+        for (auto i : m_file_list_checkbox) {
+            if (i->checkState() == Qt::Checked) {
+                file_name_list.emplace_back(i->text().toStdString());
             }
         }
 
@@ -123,15 +123,7 @@ void MainWindow::exexPythonScript(int cmd) {
     }
 }
 
-void MainWindow::slotFilesCheckBoxStateChanged(int state, int index) {
-    if (state == 0) {
-        m_file_list_enabled[index] = false;
-    } else {
-        m_file_list_enabled[index] = true;
-    }
-}
-
-void MainWindow::updateWidgetSelectFiles() {
+void MainWindow::updateWidgetSelectFiles(QStringList &file_list) {
     // 移除已有的部件
     if (ui->scrollArea_select_files ->widget()) {
         delete ui->scrollArea_select_files->widget();
@@ -141,8 +133,8 @@ void MainWindow::updateWidgetSelectFiles() {
     QWidget *container = new QWidget(ui->scrollArea_select_files);
     QVBoxLayout *layout = new QVBoxLayout(container);
 
-    container->setMinimumHeight(m_file_list.size() * 35);
-    container->setMaximumHeight(m_file_list.size() * 35);
+    container->setMinimumHeight((int) file_list.size() * 35);
+    container->setMaximumHeight((int) file_list.size() * 35);
 
     layout->setSpacing(0);
     layout->setContentsMargins(5, 0, 5, 0);
@@ -152,20 +144,14 @@ void MainWindow::updateWidgetSelectFiles() {
     // 准备动态内容
     m_file_list_checkbox.clear();
 
-    for (int i = 0; i < m_file_list.size(); i++) {
-        std::string point_info = m_file_list[i];
-
-        QCheckBox *check_box = new QCheckBox(QString::fromStdString(point_info));
+    for (int i = 0; i < (int) file_list.size(); i++) {
+        QCheckBox *check_box = new QCheckBox(file_list[i]);
         check_box->setChecked(true);
         check_box->setStyleSheet("padding: 5px; font-size: 12px;");
 
         // 将 QCheckBox 添加到布局中
         layout->addWidget(check_box);
         m_file_list_checkbox.emplace_back(check_box);
-
-        connect(check_box, &QCheckBox::stateChanged, this, [=](int state) {
-            slotFilesCheckBoxStateChanged(state, i);
-        });
 
         // 添加分割线
         QFrame *line = new QFrame();
@@ -193,16 +179,9 @@ void MainWindow::on_button_set_mseed_path_clicked() {
 
         QStringList filters;
         filters << "*.mseed";
-        QStringList fileList = dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot);
+        QStringList file_list = dir.entryList(filters, QDir::Files | QDir::NoDotAndDotDot);
 
-        m_file_list.clear();
-        for (const QString &file : fileList) {
-            m_file_list.push_back(file.toStdString());
-        }
-
-        m_file_list_enabled = std::vector<bool>(m_file_list.size(), true);
-
-        updateWidgetSelectFiles();
+        updateWidgetSelectFiles(file_list);
     }
 }
 
