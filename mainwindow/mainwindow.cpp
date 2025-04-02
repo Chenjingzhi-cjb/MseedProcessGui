@@ -110,7 +110,7 @@ void MainWindow::exexPythonScript(int cmd) {
     if (!ui->input_mseed_path->text().isEmpty()) {
         std::vector<std::string> file_name_list;
 
-        for (auto i : m_file_list_checkbox) {
+        for (auto *i : m_file_list_checkbox) {
             if (i->checkState() == Qt::Checked) {
                 file_name_list.emplace_back(i->text().toStdString());
             }
@@ -120,6 +120,27 @@ void MainWindow::exexPythonScript(int cmd) {
         m_mp.run(cmd, file_name_list);
     } else {
         emit signalMessageError("[PyProcess] Please select the files path first!");
+    }
+}
+
+void MainWindow::slotFilesCheckBoxStateChanged() {
+    bool allChecked = true, anyChecked = false;
+
+    for (auto *checkbox : m_file_list_checkbox) {
+        if (checkbox->isChecked()) {
+            anyChecked = true;
+        } else {
+            allChecked = false;
+        }
+    }
+
+    // 更新全选复选框的状态
+    if (allChecked) {
+        ui->checkBox_select_all_files->setCheckState(Qt::Checked);
+    } else if (anyChecked) {
+        ui->checkBox_select_all_files->setCheckState(Qt::PartiallyChecked);
+    } else {
+        ui->checkBox_select_all_files->setCheckState(Qt::Unchecked);
     }
 }
 
@@ -153,6 +174,10 @@ void MainWindow::updateWidgetSelectFiles(QStringList &file_list) {
         layout->addWidget(check_box);
         m_file_list_checkbox.emplace_back(check_box);
 
+        connect(check_box, &QCheckBox::stateChanged, this, [=](int) {
+            slotFilesCheckBoxStateChanged();
+        });
+
         // 添加分割线
         QFrame *line = new QFrame();
         line->setFrameShape(QFrame::HLine);
@@ -160,6 +185,8 @@ void MainWindow::updateWidgetSelectFiles(QStringList &file_list) {
         line->setStyleSheet("color: gray;");  // 设置分割线颜色
         layout->addWidget(line);
     }
+
+    ui->checkBox_select_all_files->setCheckState(Qt::Checked);
 
     // 调整容器尺寸并设置到 QScrollArea 中
     ui->scrollArea_select_files->setWidget(container);
@@ -186,7 +213,7 @@ void MainWindow::on_button_set_mseed_path_clicked() {
 }
 
 void MainWindow::on_checkBox_virtual_env_stateChanged(int arg1) {
-    m_mp.setPyVirtualFlag(ui->checkBox_virtual_env->isChecked());
+    m_mp.setPyVirtualFlag(arg1 != 0);
 }
 
 void MainWindow::on_button_virtual_env_choose_clicked() {
@@ -240,4 +267,19 @@ void MainWindow::on_button_save_pyplot_clicked() {
 
 void MainWindow::on_button_output_excel_clicked() {
     exexPythonScript(2);
+}
+
+void MainWindow::on_checkBox_select_all_files_stateChanged(int arg1) {
+    if (arg1 == 1) {
+        for (auto *checkbox : m_file_list_checkbox) {
+            if (checkbox->isChecked()) {
+                return;
+            }
+        }
+    }
+
+    bool checked = (arg1 != 0);
+    for (auto *checkbox : m_file_list_checkbox) {
+        checkbox->setChecked(checked);
+    }
 }

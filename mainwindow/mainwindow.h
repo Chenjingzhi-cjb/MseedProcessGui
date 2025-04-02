@@ -32,6 +32,8 @@ public:
     ~MainWindow();
 
 private slots:
+    void slotFilesCheckBoxStateChanged();
+
     void updateWidgetSelectFiles(QStringList &file_list);
 
     void on_button_set_mseed_path_clicked();
@@ -51,6 +53,8 @@ private slots:
     void on_button_save_pyplot_clicked();
 
     void on_button_output_excel_clicked();
+
+    void on_checkBox_select_all_files_stateChanged(int arg1);
 
 signals:
     void signalMessageInfo(QString);

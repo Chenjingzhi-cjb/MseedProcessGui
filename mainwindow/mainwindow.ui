@@ -68,7 +68,7 @@ QPushButton:pressed {
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>60</y>
+      <y>55</y>
       <width>321</width>
       <height>31</height>
      </rect>
@@ -99,7 +99,7 @@ QLineEdit:hover {
     <property name="geometry">
      <rect>
       <x>610</x>
-      <y>60</y>
+      <y>55</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -800,9 +800,9 @@ QPushButton:pressed {
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>110</y>
+      <y>120</y>
       <width>401</width>
-      <height>191</height>
+      <height>181</height>
      </rect>
     </property>
     <property name="font">
@@ -822,10 +822,23 @@ QPushButton:pressed {
        <x>0</x>
        <y>0</y>
        <width>399</width>
-       <height>189</height>
+       <height>179</height>
       </rect>
      </property>
     </widget>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_select_all_files">
+    <property name="geometry">
+     <rect>
+      <x>291</x>
+      <y>93</y>
+      <width>81</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>全选</string>
+    </property>
    </widget>
    <zorder>label_frame_process_data</zorder>
    <zorder>label_frame_load_data</zorder>
@@ -855,6 +868,7 @@ QPushButton:pressed {
    <zorder>button_output_excel</zorder>
    <zorder>button_save_pyplot</zorder>
    <zorder>scrollArea_select_files</zorder>
+   <zorder>checkBox_select_all_files</zorder>
   </widget>
  </widget>
  <resources>
