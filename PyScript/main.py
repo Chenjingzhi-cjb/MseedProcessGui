@@ -36,7 +36,13 @@ def data_conversion_base(filename, folder_path, alignment_time):
     return freq_axis, half_abs_fx
 
 
-def data_conv_pyplot(folder_path, alignment_time, cmd, files_name):
+def trim_freq_data(freq_axis, half_abs_fx, freq_min, freq_max):
+    """裁剪频率轴和对应幅值，返回新列表"""
+    trimmed = [(f, a) for f, a in zip(freq_axis, half_abs_fx) if freq_min <= f <= freq_max]
+    return list(zip(*trimmed)) if trimmed else ([], [])
+
+
+def data_conv_pyplot(folder_path, alignment_time, cmd, files_name, freq_min, freq_max):
     if files_name is None:
         files_name = []
         for filename in os.listdir(folder_path):
@@ -46,9 +52,21 @@ def data_conv_pyplot(folder_path, alignment_time, cmd, files_name):
     for index, filename in enumerate(files_name):
         freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_time)
 
+        if freq_axis[-1] < freq_max:
+            freq_max = freq_axis[-1]
+
+        # 裁剪频率范围
+        if freq_min != freq_axis[0] or freq_max != freq_axis[-1]:
+            freq_axis, half_abs_fx = trim_freq_data(freq_axis, half_abs_fx, freq_min, freq_max)
+
+        if len(freq_axis) == 0:
+            continue  # 如果裁剪后为空，跳过该文件
+
+        start_idx = 1 if freq_axis[0] == 0 else 0  # 去直流
+
         # 绘制散点图并将图像存储到列表中
         plt.figure(index)
-        plt.plot(freq_axis[1:], half_abs_fx[1:], linestyle='-')
+        plt.plot(freq_axis[start_idx:], half_abs_fx[start_idx:], linestyle='-')
         plt.xlabel('Frequency (Hz)')
         plt.ylabel('Magnitude')
         plt.title('FFT Spectrum for {}'.format(filename))  # 使用文件名作为标题
@@ -71,7 +89,7 @@ def num_to_excel_col(n):
     return col_name
 
 
-def data_conv_excel(folder_path, alignment_time, files_name):
+def data_conv_excel(folder_path, alignment_time, files_name, freq_min, freq_max):
     if files_name is None:
         files_name = []
         for filename in os.listdir(folder_path):
@@ -88,11 +106,19 @@ def data_conv_excel(folder_path, alignment_time, files_name):
         # 计算频域数据
         freq_axis, half_abs_fx = data_conversion_base(filename, folder_path, alignment_time)
 
+        # 裁剪频率范围
+        if freq_min != freq_axis[0] or freq_max != freq_axis[-1]:
+            freq_axis, half_abs_fx = trim_freq_data(freq_axis, half_abs_fx, freq_min, freq_max)
+
+        if len(freq_axis) == 0:
+            continue  # 如果裁剪后为空，跳过该文件
+
         # 写入频域数据
         worksheet.write(0, col, filename.removesuffix(".mseed"))
 
-        row = 1  # 去直流
-        for i in range(1, len(freq_axis)):
+        start_idx = 1 if freq_axis[0] == 0 else 0  # 去直流
+        row = 1
+        for i in range(start_idx, len(freq_axis)):
             worksheet.write(row, col, freq_axis[i])
             worksheet.write(row, col + 1, half_abs_fx[i])
 
@@ -104,8 +130,8 @@ def data_conv_excel(folder_path, alignment_time, files_name):
 
         chart.add_series({
             "name": f"={worksheet.name}!${x_col}$1",  # 组名称
-            "categories": f"={worksheet.name}!${x_col}$2:${x_col}${len(freq_axis)}",  # X 轴数据
-            "values": f"={worksheet.name}!${y_col}$2:${y_col}${len(freq_axis)}",  # Y 轴数据
+            "categories": f"={worksheet.name}!${x_col}$2:${x_col}${row}",  # X 轴数据
+            "values": f"={worksheet.name}!${y_col}$2:${y_col}${row}",  # Y 轴数据
             "line": {"width": 1.5, "smooth": True},  # 平滑曲线
         })
 
@@ -132,13 +158,13 @@ def data_conv_excel(folder_path, alignment_time, files_name):
     workbook.close()
 
 
-def main(folder_path, alignment_time, exec_type, files_name):
+def main(folder_path, alignment_time, exec_type, files_name, freq_min, freq_max):
     if exec_type == 'Plot1':
-        data_conv_pyplot(folder_path, alignment_time, "show", files_name)
+        data_conv_pyplot(folder_path, alignment_time, "show", files_name, freq_min, freq_max)
     elif exec_type == 'Plot2':
-        data_conv_pyplot(folder_path, alignment_time, "save", files_name)
+        data_conv_pyplot(folder_path, alignment_time, "save", files_name, freq_min, freq_max)
     elif exec_type == 'Excel':
-        data_conv_excel(folder_path, alignment_time, files_name)
+        data_conv_excel(folder_path, alignment_time, files_name, freq_min, freq_max)
 
     print("Finished!")
 
@@ -149,7 +175,9 @@ if __name__ == '__main__':
     parser.add_argument('-A', type=int, help='Alignment Time')
     parser.add_argument('-E', choices=['Plot1', 'Plot2', 'Excel'], help='Exec Type')
     parser.add_argument('-fs', nargs='+', help='Files Name')
+    parser.add_argument('-FMin', type=float, help='Frequency Min')
+    parser.add_argument('-FMax', type=float, help='Frequency Max')
 
     args = parser.parse_args()
 
-    main(args.F, args.A, args.E, args.fs)
+    main(args.F, args.A, args.E, args.fs, args.FMin, args.FMax)

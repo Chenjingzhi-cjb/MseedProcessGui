@@ -321,9 +321,9 @@ border: 2px solid;</string>
     <property name="geometry">
      <rect>
       <x>40</x>
-      <y>380</y>
+      <y>375</y>
       <width>101</width>
-      <height>21</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -840,6 +840,122 @@ QPushButton:pressed {
      <string>全选</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_frequency">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>425</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>频率(Hz)：</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="dSpinBox_freq_min">
+    <property name="geometry">
+     <rect>
+      <x>115</x>
+      <y>425</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QDoubleSpinBox {
+    border: 2px solid;
+    border-radius: 4px;
+    background: white;
+    selection-background-color: green;
+}
+ 
+QDoubleSpinBox:hover {
+    border: 2px solid blue;  
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="keyboardTracking">
+     <bool>true</bool>
+    </property>
+    <property name="decimals">
+     <number>1</number>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="dSpinBox_freq_max">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>425</y>
+      <width>51</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QDoubleSpinBox {
+    border: 2px solid;
+    border-radius: 4px;
+    background: white;
+    selection-background-color: green;
+}
+ 
+QDoubleSpinBox:hover {
+    border: 2px solid blue;  
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="keyboardTracking">
+     <bool>true</bool>
+    </property>
+    <property name="decimals">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <double>500.000000000000000</double>
+    </property>
+    <property name="value">
+     <double>500.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_line_2">
+    <property name="geometry">
+     <rect>
+      <x>175</x>
+      <y>425</y>
+      <width>8</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+   </widget>
    <zorder>label_frame_process_data</zorder>
    <zorder>label_frame_load_data</zorder>
    <zorder>label_frame_pyenv</zorder>
@@ -869,6 +985,10 @@ QPushButton:pressed {
    <zorder>button_save_pyplot</zorder>
    <zorder>scrollArea_select_files</zorder>
    <zorder>checkBox_select_all_files</zorder>
+   <zorder>label_frequency</zorder>
+   <zorder>dSpinBox_freq_min</zorder>
+   <zorder>dSpinBox_freq_max</zorder>
+   <zorder>label_line_2</zorder>
   </widget>
  </widget>
  <resources>

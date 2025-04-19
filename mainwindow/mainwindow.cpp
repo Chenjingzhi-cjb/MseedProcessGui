@@ -117,6 +117,7 @@ void MainWindow::exexPythonScript(int cmd) {
         }
 
         m_mp.setAlignmentCount(ui->spinBox_alignment_count->value());
+        m_mp.setFrequencyRange(ui->dSpinBox_freq_min->value(), ui->dSpinBox_freq_max->value());
         m_mp.run(cmd, file_name_list);
     } else {
         emit signalMessageError("[PyProcess] Please select the files path first!");

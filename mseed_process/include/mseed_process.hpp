@@ -15,7 +15,9 @@ public:
     MseedProcess(QObject *parent = nullptr)
         : QObject(parent),
           m_py_virtual_flag(false),
-          m_alignment_count(32500) {}
+          m_alignment_count(40000),
+          m_freq_min(0),
+          m_freq_max(500) {}
 
     ~MseedProcess() = default;
 
@@ -44,8 +46,10 @@ public:
         QStringList py_script_arguments;
         py_script_arguments << (QCoreApplication::applicationDirPath() + "/PyScript/main.py")
                             << "-F" << QString::fromStdString(m_folder_path)
-                            << "-A" << QString::fromStdString(std::to_string(m_alignment_count))
-                            << "-E" << exec_str;
+                            << "-A" << QString::number(m_alignment_count)
+                            << "-E" << exec_str
+                            << "-FMin" << QString::number(m_freq_min)
+                            << "-FMax" << QString::number(m_freq_max);
 
         py_script_arguments << "-fs";
         for (auto &fn : file_name_list) {
@@ -106,6 +110,11 @@ public:
         m_alignment_count = count;
     }
 
+    void setFrequencyRange(double min, double max) {
+        m_freq_min = min;
+        m_freq_max = max;
+    }
+
 signals:
     void signalMessageInfo(QString);
 
@@ -117,6 +126,8 @@ private:
 
     std::string m_folder_path;
     int m_alignment_count;
+    double m_freq_min;
+    double m_freq_max;
 };
 
 
