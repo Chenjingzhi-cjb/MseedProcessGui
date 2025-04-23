@@ -56,6 +56,8 @@ private slots:
 
     void on_checkBox_select_all_files_stateChanged(int arg1);
 
+    void on_button_output_raw_dat_clicked();
+
 signals:
     void signalMessageInfo(QString);
 

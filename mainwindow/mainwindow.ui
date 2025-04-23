@@ -956,6 +956,57 @@ QDoubleSpinBox:hover {
      <number>0</number>
     </property>
    </widget>
+   <widget class="QPushButton" name="button_output_raw_dat">
+    <property name="geometry">
+     <rect>
+      <x>465</x>
+      <y>425</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>-1</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	border-radius: 10px;
+	border: 1px solid;
+	background-color: rgb(248,248,248);
+	font-size: 13px;
+}
+
+QPushButton:hover {
+	border-radius: 10px;
+	border: 1px solid;
+	background-color: rgb(238,238,238);
+	font-size: 14px;
+}
+
+QPushButton:pressed {
+	border-radius: 10px;
+	border: 1px solid blue;
+	background-color: rgb(238,238,238);
+	font-size: 12px;
+}</string>
+    </property>
+    <property name="text">
+     <string> Output Raw to Text       </string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>:/button/resource/rawdat.svg</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>24</width>
+      <height>24</height>
+     </size>
+    </property>
+   </widget>
    <zorder>label_frame_process_data</zorder>
    <zorder>label_frame_load_data</zorder>
    <zorder>label_frame_pyenv</zorder>
@@ -989,6 +1040,7 @@ QDoubleSpinBox:hover {
    <zorder>dSpinBox_freq_min</zorder>
    <zorder>dSpinBox_freq_max</zorder>
    <zorder>label_line_2</zorder>
+   <zorder>button_output_raw_dat</zorder>
   </widget>
  </widget>
  <resources>

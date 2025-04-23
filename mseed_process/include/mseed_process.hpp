@@ -32,6 +32,7 @@ public:
         if (exec_type == 0) exec_str = "Plot1";
         else if (exec_type == 1) exec_str = "Plot2";
         else if (exec_type == 2) exec_str = "Excel";
+        else if (exec_type == 3) exec_str = "Raw";
 
         // 设置要执行的命令和参数
         QString py_interpreter = "python";
@@ -86,6 +87,8 @@ public:
             emit signalMessageInfo("[PyProcess] The charts have been saved in the source file directory.");
         else if (exec_type == 2)
             emit signalMessageInfo("[PyProcess] The data has been exported to \"result.xlsx\" in the source file directory.");
+        else if (exec_type == 3)
+            emit signalMessageInfo("[PyProcess] The data has been exported in the source file directory.");
 
         return 0;
     }

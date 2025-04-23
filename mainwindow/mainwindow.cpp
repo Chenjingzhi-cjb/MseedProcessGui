@@ -270,6 +270,10 @@ void MainWindow::on_button_output_excel_clicked() {
     exexPythonScript(2);
 }
 
+void MainWindow::on_button_output_raw_dat_clicked() {
+    exexPythonScript(3);
+}
+
 void MainWindow::on_checkBox_select_all_files_stateChanged(int arg1) {
     if (arg1 == 1) {
         for (auto *checkbox : m_file_list_checkbox) {

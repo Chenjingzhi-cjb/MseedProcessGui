@@ -10,5 +10,6 @@
         <file>resource/excel.svg</file>
         <file>resource/plotsave.svg</file>
         <file>resource/plotshow.svg</file>
+        <file>resource/rawdat.svg</file>
     </qresource>
 </RCC>
